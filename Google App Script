@@ -1,0 +1,79 @@
+function doPost(e) {
+  try {
+    // Check if e and e.postData are defined
+    if (!e || !e.postData) {
+      throw new Error("No POST data received");
+    }
+
+    // Log the incoming POST request data
+    Logger.log("Received POST request: " + e.postData.contents);
+
+    // Parse the JSON data from the request
+    var data = JSON.parse(e.postData.contents);
+
+    if (data.rosterName && data.roster) {
+      // If roster data is present, save the roster
+      saveRoster(data.rosterName, data.roster);
+    } else {
+      // Otherwise, treat it as player data
+      savePlayerData(data);
+    }
+
+    // Return success response
+    return ContentService.createTextOutput("Success");
+  } catch (error) {
+    // Log the error and return error response
+    Logger.log("Error: " + error.toString());
+    return ContentService.createTextOutput("Error: " + error.toString());
+  }
+}
+
+function savePlayerData(data) {
+  var sheet = SpreadsheetApp.openById("18kh6azNbnHJUrlhY_FhH4350fLjcPmgrnkvaDv7CRds").getSheetByName("Sheet1");
+
+  // Get all data from the sheet
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+
+  var playerName = data.name;
+  var found = false;
+
+  // Iterate through the rows to find the player's row
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === playerName) {
+      // Update the player's row with new data
+      sheet.getRange(i + 1, 1, 1, 5).setValues([[data.name, data.timestamp, data.points, data.isPaused, data.reason]]);
+      found = true;
+      break;
+    }
+  }
+
+  // If player is not found, append a new row
+  if (!found) {
+    sheet.appendRow([data.name, data.timestamp, data.points, data.isPaused, data.reason]);
+  }
+}
+
+function saveRoster(rosterName, roster) {
+  var sheet = SpreadsheetApp.openById("18kh6azNbnHJUrlhY_FhH4350fLjcPmgrnkvaDv7CRds").getSheetByName("Rosters");
+
+  // Find the row with the given roster name
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  var found = false;
+
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === rosterName) {
+      // Update the existing roster row
+      sheet.getRange(i + 1, 2, 1, roster.length).setValues([roster]);
+      found = true;
+      break;
+    }
+  }
+
+  // If roster is not found, append a new row
+  if (!found) {
+    var newRow = [rosterName].concat(roster);
+    sheet.appendRow(newRow);
+  }
+}

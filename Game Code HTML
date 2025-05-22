@@ -170,6 +170,10 @@ const defaultAvatarLocal = 'https://i.ibb.co/zZXMLTT/default-avatar.png'; // Pla
 let leaderboardChart;
 
 // Ensure the audio file is loaded before it is played
+const pointSound = document.getElementById("pointSound");
+pointSound.addEventListener("canplaythrough", () => {
+    console.log("Point sound is ready to play");
+});
 const bonusSound = document.getElementById("bonusSound");
 bonusSound.addEventListener("canplaythrough", () => {
     console.log("Bonus sound is ready to play");
@@ -391,6 +395,13 @@ function updatePointsAndTimer(index) {
             timerData[index].points += 1;
             document.getElementById(`points_${index}`).textContent = timerData[index].points;
             timerData[index].startTime = new Date();
+
+            if (pointSound.readyState >= 2) {
+                pointSound.currentTime = 0;
+                pointSound.play();
+            }
+
+            updateLeaderboard();
 
             sendToGoogleSheets({
                 name: nameList[index],

@@ -253,7 +253,10 @@ document.getElementById("addNameButton").addEventListener("click", () => {
 
 document.getElementById("startAllButton").addEventListener("click", () => {
     startGameForAll();
-    backgroundMusic.play(); // Play background music on loop
+    // Only attempt to play background music if a valid source is provided
+    if (backgroundMusic && backgroundMusic.src && !backgroundMusic.src.includes("YOUR_MP3_SOURCE_URL")) {
+        backgroundMusic.play(); // Play background music on loop
+    }
 });
 
 document.getElementById("saveRosterButton").addEventListener("click", () => {
@@ -347,6 +350,7 @@ function startGame(index, viInterval) {
     const avatarImage = document.createElement("img");
     avatarImage.src = avatarId ? `https://drive.google.com/uc?export=view&id=${avatarId}` : defaultAvatar;
     avatarImage.className = "avatar";
+    avatarImage.alt = `Avatar for ${nameList[index]}`;
 
     avatarImage.onerror = () => {
         console.error(`Failed to load avatar for player ${nameList[index]}, using default avatar.`);

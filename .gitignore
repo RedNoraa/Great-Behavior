@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+__MACOSX/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor artifacts
+*.log
+*.tmp
+*.swp
+*.swo
+*.idea/
+.vscode/
+*~
+
+# Generated asset files (add additional patterns here once assets are split out)
+# /assets/generated/

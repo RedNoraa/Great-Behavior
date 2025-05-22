@@ -1,3 +1,4 @@
+// Requires CONFIG from config.js
 function doPost(e) {
   try {
     // Check if e and e.postData are defined
@@ -29,7 +30,7 @@ function doPost(e) {
 }
 
 function savePlayerData(data) {
-  var sheet = SpreadsheetApp.openById("18kh6azNbnHJUrlhY_FhH4350fLjcPmgrnkvaDv7CRds").getSheetByName("Sheet1");
+  var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getSheetByName("Sheet1");
 
   // Get all data from the sheet
   var range = sheet.getDataRange();
@@ -55,7 +56,7 @@ function savePlayerData(data) {
 }
 
 function saveRoster(rosterName, roster) {
-  var sheet = SpreadsheetApp.openById("18kh6azNbnHJUrlhY_FhH4350fLjcPmgrnkvaDv7CRds").getSheetByName("Rosters");
+  var sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getSheetByName("Rosters");
 
   // Find the row with the given roster name
   var range = sheet.getDataRange();

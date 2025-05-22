@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Great Behavior Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Great Behavior Game</h1>
+
+    <div class="controls">
+        <label for="viSelect">Select VI Schedule:</label>
+        <select id="viSelect">
+            <option value="1">VI1</option>
+            <option value="3">VI3</option>
+            <option value="5">VI5</option>
+        </select>
+        <label for="durationSelect">Pause Duration:</label>
+        <select id="durationSelect">
+            <option value="10">10 Seconds</option>
+            <option value="20">20 Seconds</option>
+            <option value="30">30 Seconds</option>
+        </select>
+        <button id="startAllButton">Start Game for All</button>
+    </div>
+
+    <div class="controls">
+        <label for="nameInput">Add Name:</label>
+        <input type="text" id="nameInput">
+        <button id="addNameButton">Add Name</button>
+    </div>
+
+    <div class="controls">
+        <label for="rosterSelect">Select Roster:</label>
+        <select id="rosterSelect">
+            <option value="default">Select Roster</option>
+        </select>
+        <button id="saveRosterButton">Save Roster</button>
+        <input type="text" id="rosterNameInput" placeholder="Enter Roster Name">
+    </div>
+
+    <h2>List of All Players:</h2>
+    <ul id="playerList" class="debug-outline"></ul>
+
+    <h2>Players:</h2>
+    <div id="timerList" class="playerGrid debug-outline"></div>
+
+    <h2>Leaderboard</h2>
+    <canvas id="leaderboardChart" width="400" height="200" class="debug-outline"></canvas>
+
+    <div class="webAppId" id="webAppId">Google Sheets Web App URL: </div>
+</div>
+
+<audio id="pointSound" src="https://drive.google.com/uc?export=view&id=1hcBqkO1gYRcWvu1UjE2nhx-u6tc0-jrn"></audio>
+<audio id="bonusSound" src="https://cdn.freesound.org/previews/201/201159_3659362-lq.mp3"></audio>
+<audio id="backgroundMusic" src="YOUR_MP3_SOURCE_URL" loop></audio> <!-- Placeholder for the .MP3 source URL -->
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -196,7 +196,11 @@ async function sendToGoogleSheets(data) {
         displaySuccessMessage('Data successfully sent to Google Sheets');
     } catch (error) {
         console.error('Error sending data to Google Sheets:', error);
-        displayErrorMessage('Failed to send data to Google Sheets');
+        if (error instanceof TypeError) {
+            displayErrorMessage('Network error. Please check your connection.');
+        } else {
+            displayErrorMessage('Failed to send data to Google Sheets');
+        }
     }
 }
 
@@ -512,5 +516,6 @@ function updateLeaderboard() {
     console.log('Updated leaderboard:', leaderboardData);
 }
 </script>
+<script src="app.js"></script>
 </body>
 </html>

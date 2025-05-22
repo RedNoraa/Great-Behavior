@@ -77,3 +77,23 @@ function saveRoster(rosterName, roster) {
     sheet.appendRow(newRow);
   }
 }
+function doGet(e) {
+  if (e && e.parameter && e.parameter.action === 'getRosters') {
+    var rosters = getRosters();
+    return ContentService.createTextOutput(JSON.stringify(rosters))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  return ContentService.createTextOutput('Invalid request');
+}
+
+function getRosters() {
+  var sheet = SpreadsheetApp.openById("18kh6azNbnHJUrlhY_FhH4350fLjcPmgrnkvaDv7CRds").getSheetByName("Rosters");
+  var data = sheet.getDataRange().getValues();
+  var result = {};
+  for (var i = 0; i < data.length; i++) {
+    var rosterName = data[i][0];
+    var players = data[i].slice(1).filter(function(name) { return name; });
+    result[rosterName] = players;
+  }
+  return result;
+}

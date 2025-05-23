@@ -1,6 +1,8 @@
+import { CONFIG } from './config.js';
+
 async function loadRosters() {
     try {
-        const response = await fetch(`${GOOGLE_SHEETS_WEB_APP_URL}?action=getRosters`);
+        const response = await fetch(`${CONFIG.GOOGLE_SHEETS_WEB_APP_URL}?action=getRosters`);
         if (!response.ok) {
             throw new Error('Failed to fetch roster data');
         }

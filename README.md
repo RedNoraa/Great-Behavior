@@ -5,15 +5,15 @@ Page hosted at https://www.rednoraa.com/best-behavior-game
 
 ## Hosting the HTML file
 
-The playable game resides in the file `Game Code HTML`. Rename this file to
-`index.html` and open it with your browser. You can also upload it to any web
+The playable game resides in `index.html`. Open it with your browser or upload
+the file along with `styles.css`, `main.js`, `app.js` and `config.js` to any web
 server to host it online.
 
-## Setting `GOOGLE_SHEETS_WEB_APP_URL`
+## Configuring API URLs
 
-Inside the HTML file search for the line that defines `GOOGLE_SHEETS_WEB_APP_URL`
-(around line 156). Replace the URL shown there with the deployment URL from your
-Google Apps Script.
+Edit `config.js` and set `GOOGLE_SHEETS_WEB_APP_URL` to the deployment URL from
+your Google Apps Script. You can also change `BACKGROUND_MUSIC_URL` to point to
+an MP3 file that should play during the game.
 
 ## Deploying the Google Apps Script
 
@@ -23,7 +23,12 @@ Google Apps Script.
 4. Choose **Deploy** → **New deployment**, select **Web app** and set the access
    permissions you need.
 5. Copy the resulting web app URL and set it as the value for
-   `GOOGLE_SHEETS_WEB_APP_URL` in the HTML file.
+   `GOOGLE_SHEETS_WEB_APP_URL` in `config.js`.
+
+### Roster formatting
+
+Rosters are stored in the `Rosters` sheet of your Google Spreadsheet. Each row
+begins with the roster name followed by player names in the remaining columns.
 
 Visit the hosted page at
 [https://www.rednoraa.com/best-behavior-game](https://www.rednoraa.com/best-behavior-game)

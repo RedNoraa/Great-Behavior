@@ -11,6 +11,10 @@ function doPost(e) {
     // Parse the JSON data from the request
     var data = JSON.parse(e.postData.contents);
 
+    if (typeof data !== 'object') {
+      throw new Error('Invalid data format');
+    }
+
     if (data.rosterName && data.roster) {
       // If roster data is present, save the roster
       saveRoster(data.rosterName, data.roster);
@@ -34,6 +38,10 @@ function savePlayerData(data) {
   // Get all data from the sheet
   var range = sheet.getDataRange();
   var values = range.getValues();
+
+  if (!data.name || !data.timestamp) {
+    throw new Error('Missing player data');
+  }
 
   var playerName = data.name;
   var found = false;

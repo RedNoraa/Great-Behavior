@@ -7,18 +7,20 @@ const table = document.getElementById('progressTable');
 let levelCount = parseInt(levelInput.value, 10);
 const students = [];
 
-function buildHeader() {
+function renderTable() {
+  table.innerHTML = '';
   const header = document.createElement('tr');
-  header.innerHTML = `<th>Student</th>`;
+  header.innerHTML = '<th>Student</th>';
   for (let i = 1; i <= levelCount; i++) {
     const th = document.createElement('th');
     th.textContent = `Level ${i}`;
     header.appendChild(th);
   }
   header.innerHTML += '<th>Up Changes</th><th>Down Changes</th>';
-  table.innerHTML = '';
   table.appendChild(header);
+  students.forEach((s, i) => addRow(s, i));
 }
+
 
 function addRow(student, index) {
   const row = document.createElement('tr');
@@ -26,7 +28,7 @@ function addRow(student, index) {
   let cells = `<td>${student.name}</td>`;
   for (let i = 1; i <= levelCount; i++) {
     const cls = i === student.level ? 'current-level' : '';
-    cells += `<td class="lvl${i} ${cls}"></td>`;
+    cells += `<td class="level-cell lvl${i} ${cls}"></td>`;
   }
   cells += `<td class="up">${student.up}</td><td class="down">${student.down}</td>`;
   row.innerHTML = cells;
@@ -61,8 +63,7 @@ function refreshRow(index) {
 
 setLevelsBtn.addEventListener('click', () => {
   levelCount = parseInt(levelInput.value, 10) || 1;
-  buildHeader();
-  students.forEach((_, i) => refreshRow(i));
+  renderTable();
 });
 
 addStudentBtn.addEventListener('click', () => {
@@ -70,8 +71,8 @@ addStudentBtn.addEventListener('click', () => {
   if (!name) return;
   const student = { name, level: 1, up: 0, down: 0 };
   students.push(student);
-  addRow(student, students.length - 1);
+  renderTable();
   studentInput.value = '';
 });
 
-buildHeader();
+renderTable();
